@@ -1,27 +1,41 @@
-let url = ('http://localhost:3000/api/products');
-const update = {
-   altTxt: "Photo d'un canapé bleu, deux places",
-   colors: (3) ['Blue', 'White', 'Black'],
-    description: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    imageUrl: "http://localhost:3000/images/kanap01.jpeg",
-   name: "Kanap Sinopé",
-    price: 1849,
-    _id: "107fb5b75607497b96722bda5b504926",
-   };
-fetch (url)
+
+//let altTxt = ( "Photo d'un canapé bleu, deux places");
+//let colors = ( 'Blue','White' ,'Black'); 
+//let description = ("Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+//let  imageUrl= "http://localhost:3000/images/kanap01.jpeg";
+//let name =  "Kanap Sinopé";
+//let  price = 1849;
+//let _id = "107fb5b75607497b96722bda5b504926";
+
+
+//fetch ('http://localhost:3000/api/products')
+//.then(res => res.json())
+ //.then(data => {
+  //        {console.log(data)};
+
+//for (let products of data  ){ 
+ //const afficheData = document.querySelector("#items"); 
+//affichageData.innerHTML = (data);
+  
+fetch('http://localhost:3000/api/products')
 .then(res => res.json())
- .then(data => {
-          {console.log(data)};
+.then(data => {
+     {console.log(data)};
+ (function(data){
+      data.map(function(products, index) {
+       document
+          .querySelector(".items")
+          .insertAdjacentHTML("beforebegin","<div class='"+products._id+"'>"
+          +"<p>Image :<img src='"+products.imageUrl+"' alt='image_produit' /></p>"
+          +"<h3>Name :"+produit.name+"</h3>"
+          +"<p>Price :"+produit.price+"</p>"
+          +"</div>")}
+  )});
+  });
+  
 
-for (let products of data  ){ 
-  affichage = update;
-}
 
-document.querySelector('#items').innerHTML = update;
-          
- 
- 
-});
+
 //const GET = {
    // method: 'POST',
   //  headers: {
