@@ -1,3 +1,4 @@
+
 const products = [
   {
     "colors": ["Blue", "White", "Black"],
@@ -84,7 +85,4 @@ exports.findById = (id) => {
     )
   );
 }
-
-
-
 
