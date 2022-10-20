@@ -3,18 +3,17 @@ const str = window.location.href;
 const url = new URL(str);
 const id = url.searchParams.get("id");
 
-
-fetch(`http://localhost:3000/api/products/${id}`)
+let productData = [];
+fetch(`http://localhost:3000/api/products/${id}`) // 5s
   .then((response) => response.json())
   .then((product) => {
-    displayProductInformation(product);
-    console.log(product.colors)
+    productData = product;
+    console.log(productData)
+    displayProductInformation();
   })
-  .catch((error) => {
-    alert(error);
-  });
 
-const displayProductInformation = (product) => {
+
+const displayProductInformation = () => {
 
   const pageTitleDiv = document.querySelector("head > title");
   const imgDiv = document.querySelector(".item__img");
@@ -22,21 +21,62 @@ const displayProductInformation = (product) => {
   const priceDiv = document.querySelector("#price");
   const descriptionDiv = document.querySelector("#description");
   const colorsDiv = document.getElementById('colors');
+
   // Intégration dans la page HTML
-  pageTitleDiv.innerHTML = product.name;
-  imgDiv.innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}">`;
-  titleDiv.innerHTML += product.name;
-  priceDiv.innerHTML += product.price;
-  descriptionDiv.innerHTML += product.description;
-  for (let i = 0; i < product.colors.length; i++) {
+  pageTitleDiv.innerHTML = productData.name;
+  imgDiv.innerHTML += `<img src="${productData.imageUrl}" alt="${productData.altTxt}">`;
+  titleDiv.innerHTML += productData.name;
+  priceDiv.innerHTML += productData.price;
+  descriptionDiv.innerHTML += productData.description;
+
+  for (let i = 0; i < productData.colors.length; i++) {
     colorsOption = document.createElement('option');
-    colorsOption.text = product.colors[i];
+    colorsOption.text = productData.colors[i];
     colorsDiv.add(colorsOption);
+
   }
 
-
-  localStorage.setItem("key", JSON.stringify(product));
-  let obj = JSON.parse(localStorage.getItem("key"));
+  addBasket()
 };
+function saveInLocalStorage(product) {
+  let productInLocalStorage = JSON.parse(localStorage.getItem("item"));
+  if (productInLocalStorage === null) {
+      productInLocalStorage= [];
+      productInLocalStorage.push(product);
+      localStorage.setItem("item", JSON.stringify(productInLocalStorage));
+  } else {
+      const foundOptionProduct = productInLocalStorage.find(element => element.id == product.id && element.couleur == product.couleur);
+      
+      if (foundOptionProduct == undefined) {
+          productInLocalStorage.push(product);
+          localStorage.setItem("item", JSON.stringify(productInLocalStorage));
+
+      } else {
+          foundOptionProduct.quantite += product.quantite;
+          localStorage.setItem("item", JSON.stringify(productInLocalStorage));
+      }
+  }   
+}
+
+const addBasket = () => {
+  let button = document.getElementById("addToCart")
+  console.log(button)
+  button.addEventListener("click", () => {
+
+    const colorsValue = document.querySelector("#colors").value
+    const quantityValue = parseInt(document.querySelector("#quantity").value)
+
+  let productOptions = {
+    id: `${productData._id}`,
+    nom: `${productData.name}`,
+    couleur: colorsValue ,
+    quantite: quantityValue ,
+    prix: `${productData.price}`,
+    image: `${productData.imageUrl}`,
+    alt: `${productData.altTxt}`
+}
+saveInLocalStorage(productOptions);
+  })}
+
 
 
