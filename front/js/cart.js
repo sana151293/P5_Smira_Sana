@@ -90,7 +90,7 @@ class Cart {
         }
     }
 
-    getNumberProduct() {
+   GetNumberItems() {
 
         let number = 0;
         for (let items of this.items) {
@@ -118,7 +118,7 @@ function getTotalPrice() {
 totalPrice.innerHTML += `<span id="totalQuantity">${getTotalPrice()}</span>`;
    
 //affiche le nombre d'article dans le panier
-function getNumberProduct() {
+function GetNumberItem() {
 
     let number = 0;
     for (let items of item) {
