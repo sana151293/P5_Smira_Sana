@@ -90,7 +90,7 @@ class Cart {
         }
     }
 
-   GetNumberItems() {
+    GetNumberItems() {
 
         let number = 0;
         for (let items of this.items) {
@@ -99,24 +99,24 @@ class Cart {
         return number;
     }
 
-    
- 
-    
-} 
+
+
+
+}
 // affixhe le prix du panier
 function getTotalPrice() {
 
-        let total = 0;
-        for (let items of item) {
-            total += items.quantity * items.price;
-            
-        }
-        return total;
+    let total = 0;
+    for (let items of item) {
+        total += items.quantity * items.price;
 
     }
-    const totalPrice = document.getElementById("totalPrice");
+    return total;
+
+}
+const totalPrice = document.getElementById("totalPrice");
 totalPrice.innerHTML += `<span id="totalQuantity">${getTotalPrice()}</span>`;
-   
+
 //affiche le nombre d'article dans le panier
 function GetNumberItem() {
 
@@ -127,24 +127,26 @@ function GetNumberItem() {
     return number;
 }
 const totalQuantity = document.getElementById("totalQuantity");
-totalQuantity.innerHTML += `<span id="totalQuantity">${getNumberProduct()}</span>`;
+totalQuantity.innerHTML += `<span id="totalQuantity">${GetNumberItem()}</span>`;
 
 
 // supprime un article du panier
 function deleteItem() {
     const deleteBtn = document.getElementsByClassName("deleteItem");
     console.log(deleteBtn);
-    
+
     for (let i = 0; i < deleteBtn.length; i++) {
-      const del = deleteBtn[i];
-      del.addEventListener('click', () =>{
-        item.splice(i, 1);
-        localStorage.setItem("item", JSON.stringify(item));
-        location.reload();
-      })
-  }}
-  
-  deleteItem();
+        const del = deleteBtn[i];
+        del.addEventListener('click', () => {
+            item.splice(i, 1);
+            localStorage.setItem("item", JSON.stringify(item));
+            location.reload();
+        })
+
+    }
+}
+
+deleteItem();
 
 
 // function getSavedCartOrCreateNewOne() {
