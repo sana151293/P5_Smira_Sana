@@ -103,7 +103,24 @@ class Cart {
 
 
 }
-// affixhe le prix du panier
+// modifie la quantité de l'article dans le panier
+function modifyQuantity() {
+    let itemQuantity = document.querySelectorAll(".itemQuantity");
+
+    for (let i = 0; i < itemQuantity.length; i++) {
+        itemQuantity[i].addEventListener("change", () => {
+           
+            let QuantityValue = itemQuantity[i].valueAsNumber;
+            item[i].quantity = QuantityValue ;
+
+            localStorage.setItem("item", JSON.stringify(item));
+            location.reload();
+        })
+    }
+}
+modifyQuantity();
+
+// affiche le prix du panier
 function getTotalPrice() {
 
     let total = 0;
